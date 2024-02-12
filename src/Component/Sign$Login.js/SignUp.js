@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
+import AuthContext from "../../Store/Auth-Context";
 
 const SignUp = () => {
   const EmailRef = useRef();
   const PasswordRef = useRef();
   const RePasswordRef = useRef();
+  const context = useContext(AuthContext);
 
   const Submit = (e) => {
     e.preventDefault();
@@ -19,33 +21,10 @@ const SignUp = () => {
         password: Password,
         returnSecureToken: true,
       };
-      fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAsZH3qrDtweiZTyYzmdE34My1E-wKNW0A",
-        {
-          method: "POST",
-          body: JSON.stringify(user),
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-      )
-        .then((res) => {
-          if (res.ok) {
-            res.json().then((data) => console.log(data));
-            alert("SignUp Succesfull");
-
-            EmailRef.current.value = "";
-            PasswordRef.current.value = "";
-            RePasswordRef.current.value = "";
-          } else {
-            res.json().then((data) => {
-              alert(data.error.message);
-            });
-          }
-        })
-        .catch((error) => {
-          console.log(error.massage);
-        });
+      context.SignUp(user);
+      EmailRef.current.value = "";
+      PasswordRef.current.value = "";
+      RePasswordRef.current.value = "";
     } else {
       alert("Password Dosent Match !");
     }
