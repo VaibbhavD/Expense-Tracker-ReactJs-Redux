@@ -1,14 +1,45 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../../Store/Auth-Context";
 import VerifyEmail from "./EmailVerify";
 
 const Profile = () => {
   const [enable, setenable] = useState(false);
+  const [profile, setprofile] = useState({});
   const context = useContext(AuthContext);
   const NameRef = useRef();
   const UrlRef = useRef();
 
-  console.log();
+  useEffect(() => {
+    ProfileData();
+  }, []);
+
+  const ProfileData = async function () {
+    await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAsZH3qrDtweiZTyYzmdE34My1E-wKNW0A",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idToken: context.token,
+        }),
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          res.json().then((data) => {
+            console.log(data.users);
+            console.log(data);
+            setprofile(data.users[0]);
+          });
+        } else {
+          res.json().then((data) => {
+            // alert(data.error.message);
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error.massage);
+      });
+  };
 
   const Showprofile = () => {
     setenable((prev) => !prev);
@@ -26,7 +57,7 @@ const Profile = () => {
       <div className=" h-4 flex p-3">
         <h3 className="w-1/2 text-left">Welcome For visit Our WebSite</h3>
         <p className="w-1/2 text-right">
-          {context.Profile.displayName && (
+          {profile.displayName && (
             <b
               className="cursor-pointer hover:text-red-500"
               onClick={Showprofile}
@@ -34,7 +65,7 @@ const Profile = () => {
               Profile
             </b>
           )}
-          {!context.Profile.displayName && !context.Profile.photoUrl && (
+          {!profile.displayName && !profile.photoUrl && (
             <>
               Your Profile is incomplete,
               <b
@@ -65,7 +96,7 @@ const Profile = () => {
                 <input
                   type="text"
                   className="border-2 border-black"
-                  placeholder={context.Profile.displayName}
+                  placeholder={profile.displayName}
                   ref={NameRef}
                   required
                 />
@@ -75,7 +106,7 @@ const Profile = () => {
                 <input
                   type="url"
                   className="border-2 border-black"
-                  placeholder={context.Profile.photoUrl}
+                  placeholder={profile.photoUrl}
                   ref={UrlRef}
                   required
                 />
