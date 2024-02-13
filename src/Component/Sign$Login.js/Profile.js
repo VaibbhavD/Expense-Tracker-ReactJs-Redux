@@ -3,12 +3,14 @@ import AuthContext from "../../Store/Auth-Context";
 
 const Profile = () => {
   const [enable, setenable] = useState(false);
+  const context = useContext(AuthContext);
   const NameRef = useRef();
   const UrlRef = useRef();
-  const context = useContext(AuthContext);
+
+  console.log();
 
   const Showprofile = () => {
-    setenable(true);
+    setenable((prev) => !prev);
   };
 
   const SubmitHandler = () => {
@@ -20,16 +22,28 @@ const Profile = () => {
 
   return (
     <div>
-      <div className="w-full h-4 flex">
+      <div className=" h-4 flex p-3">
         <h3 className="w-1/2 text-left">Welcome For visit Our WebSite</h3>
         <p className="w-1/2 text-right">
-          Your Profile Is Incomplite.
-          <b
-            className="cursor-pointer hover:text-red-500"
-            onClick={Showprofile}
-          >
-            Complete Now
-          </b>
+          {context.Profile.displayName && (
+            <b
+              className="cursor-pointer hover:text-red-500"
+              onClick={Showprofile}
+            >
+              Profile
+            </b>
+          )}
+          {!context.Profile.displayName && !context.Profile.photoUrl && (
+            <>
+              Is Incomplite,
+              <b
+                className="cursor-pointer hover:text-red-500"
+                onClick={Showprofile}
+              >
+                Complete Now
+              </b>
+            </>
+          )}
         </p>
       </div>
       {enable && (
@@ -49,6 +63,7 @@ const Profile = () => {
                 <input
                   type="text"
                   className="border-2 border-black"
+                  placeholder={context.Profile.displayName}
                   ref={NameRef}
                   required
                 />
@@ -58,6 +73,7 @@ const Profile = () => {
                 <input
                   type="url"
                   className="border-2 border-black"
+                  placeholder={context.Profile.photoUrl}
                   ref={UrlRef}
                   required
                 />
