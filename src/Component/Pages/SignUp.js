@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from "react";
 import AuthContext from "../../Store/Auth-Context";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const EmailRef = useRef();
@@ -76,12 +77,12 @@ const SignUp = () => {
         </form>
         <div class="text-grey-dark mt-6">
           Already have an account?
-          <a
+          <Link
             class="no-underline border-b border-blue text-blue"
-            href="../login/"
+            to={"/login"}
           >
             Log in
-          </a>
+          </Link>
           .
         </div>
       </div>
