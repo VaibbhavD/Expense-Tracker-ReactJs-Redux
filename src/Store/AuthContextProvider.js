@@ -117,7 +117,7 @@ const AuthContextProvider = (props) => {
           });
         } else {
           res.json().then((data) => {
-            alert(data.error.message);
+            // alert(data.error.message);
           });
         }
       })
