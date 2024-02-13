@@ -10,6 +10,7 @@ const AuthContextProvider = (props) => {
   const navigate = useNavigate();
 
   const IsLoggedIn = !!token;
+  console.log(IsLoggedIn);
 
   async function Login(user) {
     await fetch(
@@ -69,7 +70,7 @@ const AuthContextProvider = (props) => {
 
   const Logout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    settoken(null);
   };
 
   async function UpdateProfile(Name, Url) {
@@ -104,37 +105,37 @@ const AuthContextProvider = (props) => {
       });
   }
 
-  useEffect(() => {
-    ProfileData();
-  }, []);
+  // useEffect(() => {
+  //   ProfileData();
+  // }, []);
 
-  const ProfileData = async function () {
-    await fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAsZH3qrDtweiZTyYzmdE34My1E-wKNW0A",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          idToken: token,
-        }),
-      }
-    )
-      .then((res) => {
-        if (res.ok) {
-          res.json().then((data) => {
-            console.log(data.users);
-            console.log(data);
-            setProfile(data.users[0]);
-          });
-        } else {
-          res.json().then((data) => {
-            // alert(data.error.message);
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error.massage);
-      });
-  };
+  // const ProfileData = async function () {
+  //   await fetch(
+  //     "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAsZH3qrDtweiZTyYzmdE34My1E-wKNW0A",
+  //     {
+  //       method: "POST",
+  //       body: JSON.stringify({
+  //         idToken: token,
+  //       }),
+  //     }
+  //   )
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         res.json().then((data) => {
+  //           console.log(data.users);
+  //           console.log(data);
+  //           setProfile(data.users[0]);
+  //         });
+  //       } else {
+  //         res.json().then((data) => {
+  //           // alert(data.error.message);
+  //         });
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.massage);
+  //     });
+  // };
 
   const context = {
     token: token,
