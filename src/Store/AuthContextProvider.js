@@ -1,8 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "./Auth-Context";
 
 const AuthContextProvider = (props) => {
-  const [token, settoken] = useState("");
+  const InitialToken = localStorage.getItem("token");
+  const [token, settoken] = useState(InitialToken);
+  const [Profile, setProfile] = useState({});
 
   const IsLoggedIn = !!token;
 
@@ -23,8 +25,6 @@ const AuthContextProvider = (props) => {
           console.log(data);
           localStorage.setItem("token", data.idToken);
           settoken(data.idToken);
-          console.log("res");
-
           alert("Login Succesfull");
         });
       } else {
@@ -71,7 +71,7 @@ const AuthContextProvider = (props) => {
           idToken: token,
           displayName: Name,
           photoUrl: Url,
-          deleteAttribute: ["DISPLAY_NAME", "PHOTO_URL"],
+          // deleteAttribute: ["DISPLAY_NAME", "PHOTO_URL"],
           returnSecureToken: false,
         }),
         headers: {
@@ -94,9 +94,42 @@ const AuthContextProvider = (props) => {
       });
   }
 
+  useEffect(() => {
+    ProfileData();
+  }, []);
+
+  const ProfileData = async function () {
+    await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAsZH3qrDtweiZTyYzmdE34My1E-wKNW0A",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idToken: token,
+        }),
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          res.json().then((data) => {
+            console.log(data.users);
+            console.log(data);
+            setProfile(data.users[0]);
+          });
+        } else {
+          res.json().then((data) => {
+            alert(data.error.message);
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error.massage);
+      });
+  };
+
   const context = {
     token: token,
     IsLoggedIn: IsLoggedIn,
+    Profile: Profile,
     Login: Login,
     SignUp: SignUp,
     UpdateProfile: UpdateProfile,
