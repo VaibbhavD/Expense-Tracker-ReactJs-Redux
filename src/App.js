@@ -14,11 +14,9 @@ function App() {
     <Layout>
       <main>
         <Routes>
+          {!context.IsLoggedIn && <Route path="/login" element={<Login />} />}
           {context.IsLoggedIn && (
             <Route path="/profile" element={<Profile />} />
-          )}
-          {!context.IsLoggedIn && (
-            <Route path="/login" element={<Login />} exact />
           )}
           {!context.IsLoggedIn && <Route path="/signup" element={<SignUp />} />}
           {!context.IsLoggedIn && <Route path="*" element={<Login />} />}
