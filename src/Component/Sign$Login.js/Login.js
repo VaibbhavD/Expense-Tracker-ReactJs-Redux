@@ -1,11 +1,11 @@
 import React, { useContext, useRef, useState } from "react";
 import AuthContext from "../../Store/Auth-Context";
+import Profile from "./Profile";
 
 const Login = () => {
   const EmailRef = useRef();
   const PasswordRef = useRef();
   const context = useContext(AuthContext);
-  const [welcome, setwelcome] = useState(context.IsLoggedIn);
 
   const Submit = (e) => {
     e.preventDefault();
@@ -19,17 +19,16 @@ const Login = () => {
       password: Password,
       returnSecureToken: false,
     };
-    context.Login(user);
+    const res = context.Login(user);
     EmailRef.current.value = "";
     PasswordRef.current.value = "";
-    setwelcome(true);
   };
 
   return (
     <>
-      {welcome && <h3>Wlcome</h3>}
+      {context.IsLoggedIn && <Profile />}
       <div class="bg-grey-lighter min-h-screen flex flex-col">
-        {!welcome && (
+        {!context.IsLoggedIn && (
           <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
             <form
               onSubmit={Submit}
