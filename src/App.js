@@ -6,6 +6,7 @@ import Layout from "./Component/Pages/Layout";
 import { Route, Router, Routes } from "react-router-dom";
 import Profile from "./Component/Pages/Profile";
 import AuthContext from "./Store/Auth-Context";
+import ForgetPass from "./Component/Pages/ForgetPass";
 
 function App() {
   const context = useContext(AuthContext);
@@ -19,6 +20,9 @@ function App() {
             <Route path="/profile" element={<Profile />} />
           )}
           {!context.IsLoggedIn && <Route path="/signup" element={<SignUp />} />}
+          {!context.IsLoggedIn && (
+            <Route path="/forget" element={<ForgetPass />} />
+          )}
           {!context.IsLoggedIn && <Route path="*" element={<Login />} />}
         </Routes>
       </main>
