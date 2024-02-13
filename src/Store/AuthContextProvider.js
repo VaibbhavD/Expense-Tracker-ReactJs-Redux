@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "./Auth-Context";
+import { useNavigate } from "react-router-dom";
 
 const AuthContextProvider = (props) => {
   const InitialToken = localStorage.getItem("token");
   const [token, settoken] = useState(InitialToken);
   const [Profile, setProfile] = useState({});
+
+  const navigate = useNavigate();
 
   const IsLoggedIn = !!token;
 
@@ -26,6 +29,7 @@ const AuthContextProvider = (props) => {
           localStorage.setItem("token", data.idToken);
           settoken(data.idToken);
           alert("Login Succesfull");
+          navigate("/profile");
         });
       } else {
         res.json().then((data) => {
@@ -51,6 +55,7 @@ const AuthContextProvider = (props) => {
         if (res.ok) {
           res.json().then((data) => console.log(data));
           alert("SignUp Succesfull");
+          navigate("/login");
         } else {
           res.json().then((data) => {
             alert(data.error.message);
@@ -61,6 +66,11 @@ const AuthContextProvider = (props) => {
         console.log(error.massage);
       });
   }
+
+  const Logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   async function UpdateProfile(Name, Url) {
     await fetch(
@@ -131,6 +141,7 @@ const AuthContextProvider = (props) => {
     IsLoggedIn: IsLoggedIn,
     Profile: Profile,
     Login: Login,
+    Logout: Logout,
     SignUp: SignUp,
     UpdateProfile: UpdateProfile,
   };

@@ -5,6 +5,7 @@ const AuthContext = React.createContext({
   IsLoggedIn: false,
   Profile: {},
   Login: (user) => {},
+  Logout: () => {},
   SignUp: (user) => {},
   UpdateProfile: () => {},
 });
