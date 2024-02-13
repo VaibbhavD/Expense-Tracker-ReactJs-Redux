@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
+import AuthContext from "../../Store/Auth-Context";
 
 const Profile = () => {
   const [enable, setenable] = useState(false);
+  const NameRef = useRef();
+  const UrlRef = useRef();
+  const context = useContext(AuthContext);
 
   const Showprofile = () => {
     setenable(true);
+  };
+
+  const SubmitHandler = () => {
+    const Name = NameRef.current.value;
+    const Url = UrlRef.current.value;
+
+    context.UpdateProfile(Name, Url);
   };
 
   return (
@@ -35,15 +46,28 @@ const Profile = () => {
             <form className="p-5 flex gap-10">
               <div className="flex gap-3">
                 <label htmlFor="name">Full Name</label>
-                <input type="text" className="border-2 border-black" />
+                <input
+                  type="text"
+                  className="border-2 border-black"
+                  ref={NameRef}
+                  required
+                />
               </div>
               <div className="flex gap-3">
                 <label htmlFor="name">Profile Photo</label>
-                <input type="url" className="border-2 border-black" />
+                <input
+                  type="url"
+                  className="border-2 border-black"
+                  ref={UrlRef}
+                  required
+                />
               </div>
             </form>
             <div className="p-5">
-              <button className="bg-red-400 p-2 border-white rounded-md">
+              <button
+                className="bg-red-400 p-2 border-white rounded-md"
+                onClick={SubmitHandler}
+              >
                 Update
               </button>
             </div>

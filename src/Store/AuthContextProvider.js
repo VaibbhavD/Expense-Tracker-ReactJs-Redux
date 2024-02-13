@@ -36,8 +36,8 @@ const AuthContextProvider = (props) => {
     return IsLoggedIn;
   }
 
-  const SignUp = (user) => {
-    fetch(
+  async function SignUp(user) {
+    await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAsZH3qrDtweiZTyYzmdE34My1E-wKNW0A",
       {
         method: "POST",
@@ -60,13 +60,46 @@ const AuthContextProvider = (props) => {
       .catch((error) => {
         console.log(error.massage);
       });
-  };
+  }
+
+  async function UpdateProfile(Name, Url) {
+    await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAsZH3qrDtweiZTyYzmdE34My1E-wKNW0A",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idToken: token,
+          displayName: Name,
+          photoUrl: Url,
+          deleteAttribute: ["DISPLAY_NAME", "PHOTO_URL"],
+          returnSecureToken: false,
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          res.json().then((data) => console.log(data));
+          alert("Update SuccesFully");
+        } else {
+          res.json().then((data) => {
+            alert(data.error.message);
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error.massage);
+      });
+  }
 
   const context = {
     token: token,
     IsLoggedIn: IsLoggedIn,
     Login: Login,
     SignUp: SignUp,
+    UpdateProfile: UpdateProfile,
   };
   return (
     <AuthContext.Provider value={context}>
