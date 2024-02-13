@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import AuthContext from "../../Store/Auth-Context";
+import VerifyEmail from "./EmailVerify";
 
 const Profile = () => {
   const [enable, setenable] = useState(false);
@@ -35,7 +36,7 @@ const Profile = () => {
           )}
           {!context.Profile.displayName && !context.Profile.photoUrl && (
             <>
-              Is Incomplite,
+              Your Profile is incomplete,
               <b
                 className="cursor-pointer hover:text-red-500"
                 onClick={Showprofile}
@@ -46,6 +47,7 @@ const Profile = () => {
           )}
         </p>
       </div>
+      {!enable && <VerifyEmail />}
       {enable && (
         <main className=" w-1/2 flex justify-center m-auto mt-10 p-5">
           <div className="w-full border-2 p-5">
