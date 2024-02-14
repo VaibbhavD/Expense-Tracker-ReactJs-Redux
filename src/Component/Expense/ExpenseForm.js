@@ -1,6 +1,5 @@
 import React, { useContext, useRef } from "react";
 import ExpenseContext from "../../Store/ExpenseContext";
-import ShowExpense from "./ShowExpense";
 
 const ExpenseForm = () => {
   const AmountRef = useRef();
@@ -104,7 +103,6 @@ const ExpenseForm = () => {
               </div>
             </div>
           </form>
-          <ShowExpense />
         </div>
       </div>
     </div>
