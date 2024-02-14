@@ -78,51 +78,49 @@ const Profile = () => {
           )}
         </p>
       </div>
-      {!enable && <VerifyEmail />}
-      {enable && (
-        <main className=" w-1/2 flex justify-center m-auto mt-10 p-5">
-          <div className="w-full border-2 p-5">
-            <div className="flex justify-center w-full p-3 ">
-              <p className="w-1/2 text-left">Contact Details</p>
-              <div className="w-1/2 flex justify-end">
-                <button className="p-2 rounded-md border-2 border-red-600">
-                  Cancel
-                </button>
-              </div>
-            </div>
-            <form className="p-5 flex gap-10">
-              <div className="flex gap-3">
-                <label htmlFor="name">Full Name</label>
-                <input
-                  type="text"
-                  className="border-2 border-black"
-                  placeholder={profile.displayName}
-                  ref={NameRef}
-                  required
-                />
-              </div>
-              <div className="flex gap-3">
-                <label htmlFor="name">Profile Photo</label>
-                <input
-                  type="url"
-                  className="border-2 border-black"
-                  placeholder={profile.photoUrl}
-                  ref={UrlRef}
-                  required
-                />
-              </div>
-            </form>
-            <div className="p-5">
-              <button
-                className="bg-red-400 p-2 border-white rounded-md"
-                onClick={SubmitHandler}
-              >
-                Update
+      <main className=" w-1/2 flex justify-center m-auto mt-10 p-5">
+        <div className="w-full border-2 p-5">
+          <div className="flex justify-center w-full p-3 ">
+            <h3 className="w-1/2 text-left">Contact Details</h3>
+            <div className="w-1/2 flex justify-end">
+              <button className="p-2 rounded-md border-2 border-red-600">
+                Cancel
               </button>
             </div>
           </div>
-        </main>
-      )}
+          <form className="p-5 flex gap-10">
+            <div className="flex gap-3">
+              <label htmlFor="name">Full Name</label>
+              <input
+                type="text"
+                className="border-2 border-black rounded-md"
+                placeholder={profile.displayName}
+                ref={NameRef}
+                required
+              />
+            </div>
+            <div className="flex gap-3">
+              <label htmlFor="name">Profile Photo</label>
+              <input
+                type="url"
+                className="border-2 border-black rounded-md"
+                placeholder={profile.photoUrl}
+                ref={UrlRef}
+                required
+              />
+            </div>
+          </form>
+          <div className="p-5">
+            <button
+              className="bg-red-400 p-2 border-white rounded-md"
+              onClick={SubmitHandler}
+            >
+              Update
+            </button>
+          </div>
+        </div>
+        <VerifyEmail />
+      </main>
     </div>
   );
 };
