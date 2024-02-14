@@ -19,7 +19,7 @@ const ExpenseForm = () => {
       Amount: Amount,
       Categeory: Categeory,
       Description: Description,
-      id: Math.random(),
+      Id: Math.random(),
     };
     context.AddExpense(Expense);
   };
@@ -54,7 +54,7 @@ const ExpenseForm = () => {
 
                   <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                     <label
-                      for="state"
+                      for="Categeory"
                       class="block text-lm font-medium text-gray-700"
                     >
                       Categeory
@@ -77,7 +77,7 @@ const ExpenseForm = () => {
 
                   <div class="col-span-6 sm:col-span-3 lg:col-span-2 ">
                     <label
-                      for="postal_code"
+                      for="Des"
                       class="block text-lm font-medium text-gray-700"
                     >
                       Description
