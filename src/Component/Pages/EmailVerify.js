@@ -29,7 +29,7 @@ const VerifyEmail = () => {
   }
 
   return (
-    <div className="w-full h-full flex justify-center">
+    <div className=" absolute mt-10 top-96 flex justify-center">
       <button
         type="button"
         onClick={VerifyHandler}
