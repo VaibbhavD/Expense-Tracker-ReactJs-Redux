@@ -19,7 +19,8 @@ const ForgetPass = () => {
       }
     ).then((res) => {
       if (res.ok) {
-        alert("Passeosd Link Sent Your Email");
+        alert("Password Link Sent Your Email");
+        EmailRef.current.value = "";
       } else {
         res.json().then((data) => alert(data.error.message));
       }

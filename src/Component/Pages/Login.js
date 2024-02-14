@@ -70,7 +70,7 @@ const Login = () => {
               Don't have a Account?
               <Link
                 class="no-underline border-b border-blue text-blue"
-                to={"/"}
+                to={"/signup"}
               >
                 Sign Up
               </Link>
