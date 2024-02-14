@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "./Auth-Context";
 import { useNavigate } from "react-router-dom";
+import ExpenseCtxProvider from "./ExpenseCtxProvider";
 
 const AuthContextProvider = (props) => {
   const InitialToken = localStorage.getItem("token");
@@ -148,7 +149,7 @@ const AuthContextProvider = (props) => {
   };
   return (
     <AuthContext.Provider value={context}>
-      {props.children}
+      <ExpenseCtxProvider>{props.children}</ExpenseCtxProvider>
     </AuthContext.Provider>
   );
 };
