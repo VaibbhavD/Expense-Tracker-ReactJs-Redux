@@ -7,13 +7,34 @@ const ShowExpense = () => {
 
   return (
     <>
-      <ul>
-        {context.Expenses.map((expense) => {
-          <li>
-            {expense.Amount} {expense.Categeory} {expense.Description}
-          </li>;
-        })}
-      </ul>
+      <div class="w-full h-full  pt-8">
+        <div class="w-full  p-3 bg-gray-100">
+          <div class="text-center ">
+            <h1 class="text-3xl font-medium">Expenses</h1>
+          </div>
+          <div class="mt-8 w-full ">
+            {context.Expenses.length === 0 && <h1> No Expense </h1>}
+            <ul>
+              {context.Expenses.map((expense) => (
+                <li class="p-2 rounded-lg w-full bg-gray-300 mb-2">
+                  <div class="flex align-middle flex-row justify-between">
+                    <div class="p-2">{expense.Categeory}</div>
+                    <div class="p-2">
+                      <p class="text-lg  ">{expense.Description}</p>
+                    </div>
+                    <div class="p-2">
+                      <p class="text-lg  ">Rs.{expense.Amount}</p>
+                    </div>
+                    <button class="flex text-red-500 border-2 border-red-500 p-2 rounded-lg">
+                      <span>Remove</span>
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
