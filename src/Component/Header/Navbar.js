@@ -7,7 +7,9 @@ const Navbar = () => {
 
   return (
     <div class="flex bg-gray-800 text-white top-0 py-3 flex-wrap justify-around bg-silver">
-      <h1 class="text-lg font-semibold">Todo app</h1>
+      <h1 class="text-lg font-semibold">
+        <Link to={"/"}>Todo app</Link>
+      </h1>
       <ul class="flex gap-[40px] text-m cursor-pointer">
         {!context.IsLoggedIn && <Link to={"/login"}>login</Link>}
         {!context.IsLoggedIn && <Link to={"/signup"}>SignUp</Link>}
