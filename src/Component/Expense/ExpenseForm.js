@@ -28,7 +28,7 @@ const ExpenseForm = () => {
   return (
     <div class="w-screen mt-10 sm:mt-0 ">
       <div class="w-full md:grid-cols-3 md:gap-6 text-center mt-10">
-        <h3 class="text-2xl font-medium leading-6 text-gray-900">
+        <h3 class="text-3xl font-medium leading-6 text-gray-900">
           Add Your Expenses
         </h3>
         <div class="w-1/2  md:mt-0 md:col-span-2 m-auto  ">
@@ -104,11 +104,9 @@ const ExpenseForm = () => {
               </div>
             </div>
           </form>
+          <ShowExpense />
         </div>
       </div>
-      <main>
-        <ShowExpense />
-      </main>
     </div>
   );
 };
