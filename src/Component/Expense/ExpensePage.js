@@ -6,7 +6,7 @@ const ExpensePage = () => {
   return (
     <>
       <ExpenseForm />
-      <ShowExpense />
+      {/* <ShowExpense /> */}
     </>
   );
 };
