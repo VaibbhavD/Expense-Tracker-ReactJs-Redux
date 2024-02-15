@@ -3,11 +3,10 @@ import ExpenseContext from "./ExpenseContext";
 
 const ExpenseCtxProvider = (props) => {
   const [Expenses, setExpenses] = useState([]);
-  const [ex, setex] = useState({});
+  const [keys, setkeys] = useState("");
 
-  const AddExpense = (item) => {
-    setExpenses((prev) => [...prev, item]);
-    fetch(
+  async function AddExpense(item) {
+    await fetch(
       "https://authentication-1db8c-default-rtdb.firebaseio.com/expens.json",
       {
         method: "POST",
@@ -16,45 +15,71 @@ const ExpenseCtxProvider = (props) => {
     )
       .then((res) => {
         if (res.ok) {
+          res
+            .json()
+            .then(
+              (data) =>
+                setExpenses((prev) => [...prev, { ...item, value: data.name }]),
+              alert("Added Successfully !")
+            );
         } else {
           res.json().then((data) => alert(data.error.message));
         }
       })
       .catch((error) => alert(error.message));
-  };
+    // setExpenses((prev) => [...prev, { ...item, value: keys }]);
+  }
 
   useEffect(() => {
-    fetch(
+    GetData();
+  }, []);
+
+  const GetData = async () => {
+    await fetch(
       "https://authentication-1db8c-default-rtdb.firebaseio.com/expens.json"
     )
       .then((res) => {
         if (res.ok) {
           res.json().then((data) => {
             if (data) {
-              setExpenses(Object.values(data));
+              let temp = [];
+              for (let key in data) {
+                temp = [...temp, { ...data[key], value: key }];
+              }
+              setExpenses(temp);
             }
           });
         } else {
-          res.json().then((data) => {
-            for (const key in data) {
-              setex(Object.entries(data[key]));
-            }
-          });
+          res.json().then((data) => alert(data.error.message));
         }
       })
       .catch((error) => console(error.message));
-  }, []);
-
-  console.log(ex);
+  };
 
   const RemoveExpense = (item) => {
-    Expenses.filter((it) => it.id !== item.id);
+    fetch(
+      `https://authentication-1db8c-default-rtdb.firebaseio.com/expens/${item.value}.json`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          // alert("Expese Delete SuccessFully ! ");
+        } else {
+          res.json().then((data) => alert(data.error.message));
+        }
+      })
+      .catch((error) => alert(error.message));
+    let temp = Expenses.filter((it) => it.Id !== item.Id);
+    setExpenses(temp);
   };
 
   const context = {
     Expenses: Expenses,
     AddExpense: AddExpense,
     RemoveExpense: RemoveExpense,
+    GetData: GetData,
   };
 
   return (

@@ -4,5 +4,6 @@ const ExpenseContext = React.createContext({
   Expenses: [],
   AddExpense: () => {},
   RemoveExpense: () => {},
+  GetData: () => {},
 });
 export default ExpenseContext;
