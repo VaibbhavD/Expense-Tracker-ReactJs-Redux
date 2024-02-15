@@ -1,9 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ExpenseContext from "../../Store/ExpenseContext";
 
-const ShowExpense = () => {
+const ShowExpense = (props) => {
   const context = useContext(ExpenseContext);
+  useEffect(() => {
+    context.GetData();
+  }, []);
   console.log(context.Expenses);
+
+  const RemoveHandler = (expense) => {
+    context.RemoveExpense(expense);
+  };
 
   return (
     <>
@@ -26,7 +33,12 @@ const ShowExpense = () => {
                       <p class="text-lg  ">Rs.{expense.Amount}</p>
                     </div>
                     <button class="flex text-red-500 border-2 border-red-500 p-2 rounded-lg">
-                      <span>Remove</span>
+                      <button onClick={() => RemoveHandler(expense)}>
+                        Remove
+                      </button>
+                    </button>
+                    <button class="flex text-red-500 border-2 border-red-500 p-2 rounded-lg">
+                      <button onClick={() => props.Edit(expense)}>Edit</button>
                     </button>
                   </div>
                 </li>
