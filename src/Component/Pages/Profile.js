@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import AuthContext from "../../Store/Auth-Context";
+import AuthContext from "../../Store/ContextApi/Auth-Context";
 import VerifyEmail from "./EmailVerify";
 import { useSelector } from "react-redux";
 
@@ -9,7 +9,7 @@ const Profile = () => {
   const context = useContext(AuthContext);
   const NameRef = useRef();
   const UrlRef = useRef();
-  const token = useSelector((state) => state.token);
+  const token = useSelector((state) => state.Auth.token);
 
   useEffect(() => {
     ProfileData();
@@ -58,22 +58,12 @@ const Profile = () => {
         <h3 className="w-1/2 text-left">Welcome For visit Our WebSite</h3>
         <p className="w-1/2 text-right">
           {profile.displayName && (
-            <b
-              className="cursor-pointer hover:text-red-500"
-              // onClick={Showprofile}
-            >
-              Profile
-            </b>
+            <b className="cursor-pointer hover:text-red-500">Profile</b>
           )}
           {!profile.displayName && !profile.photoUrl && (
             <>
               Your Profile is incomplete,
-              <b
-                className="cursor-pointer hover:text-red-500"
-                // onClick={Showprofile}
-              >
-                Complete Now
-              </b>
+              <b className="cursor-pointer hover:text-red-500">Complete Now</b>
             </>
           )}
         </p>

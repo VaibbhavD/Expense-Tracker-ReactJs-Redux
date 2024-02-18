@@ -1,16 +1,19 @@
 import React, { useContext, useRef, useState } from "react";
-import ExpenseContext from "../../Store/ExpenseContext";
+import ExpenseContext from "../../Store/ContextApi/ExpenseContext";
 import ShowExpense from "./ShowExpense";
+import { ExpenseAction } from "../../Store/Redux/ExpenseSlice";
+import { useDispatch } from "react-redux";
 
 const ExpenseForm = () => {
   const AmountRef = useRef();
   const CategeoryRef = useRef();
   const DescriptionRef = useRef();
   const [update, setupdate] = useState(false);
+  const dispatch = useDispatch();
 
   const context = useContext(ExpenseContext);
 
-  const SubmitEventmitHandler = (e) => {
+  const SubmitEventmitHandler = async (e) => {
     e.preventDefault();
 
     const Amount = AmountRef.current.value;
@@ -23,7 +26,29 @@ const ExpenseForm = () => {
       Description: Description,
       Id: Math.random(),
     };
-    context.AddExpense(Expense);
+    await fetch(
+      "https://authentication-1db8c-default-rtdb.firebaseio.com/two.json",
+      {
+        method: "POST",
+        body: JSON.stringify(Expense),
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          res
+            .json()
+            .then(
+              (data) =>
+                dispatch(
+                  ExpenseAction.AddExpense({ ...Expense, value: data.name })
+                ),
+              alert("Added Successfully !")
+            );
+        } else {
+          res.json().then((data) => alert(data.error.message));
+        }
+      })
+      .catch((error) => alert(error.message));
   };
 
   const [EditExp, setEdiExp] = useState({});

@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import AuthContext from "../../Store/Auth-Context";
+import { useSelector } from "react-redux";
 
 const VerifyEmail = () => {
-  const context = useContext(AuthContext);
+  const token = useSelector((state) => state.Auth.token);
 
   async function VerifyHandler() {
     await fetch(
@@ -11,7 +11,7 @@ const VerifyEmail = () => {
         method: "POST",
         body: JSON.stringify({
           requestType: "VERIFY_EMAIL",
-          idToken: context.token,
+          idToken: token,
         }),
       }
     )

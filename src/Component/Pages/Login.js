@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Login = () => {
   const EmailRef = useRef();
   const PasswordRef = useRef();
-  const Islogin = useSelector((state) => state.IsLoggedIn);
+  const Islogin = useSelector((state) => state.Auth.IsLoggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

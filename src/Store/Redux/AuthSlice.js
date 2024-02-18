@@ -1,5 +1,4 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-import { useEffect } from "react";
+import { createSlice } from "@reduxjs/toolkit";
 
 const InitialToken = localStorage.getItem("token");
 
@@ -28,10 +27,7 @@ const AuthSlice = createSlice({
   },
 });
 
-const store = configureStore({
-  reducer: AuthSlice.reducer,
-});
-
 export const AuthAction = AuthSlice.actions;
+const AuthReducer = AuthSlice.reducer;
 
-export default store;
+export default AuthReducer;

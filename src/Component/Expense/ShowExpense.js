@@ -1,15 +1,51 @@
 import React, { useContext, useEffect } from "react";
-import ExpenseContext from "../../Store/ExpenseContext";
+import ExpenseContext from "../../Store/ContextApi/ExpenseContext";
+import { useDispatch, useSelector } from "react-redux";
+import { ExpenseAction } from "../../Store/Redux/ExpenseSlice";
 
 const ShowExpense = (props) => {
   const context = useContext(ExpenseContext);
+  const Expenses = useSelector((state) => state.Expense.Expenses);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    context.GetData();
+    fetch("https://authentication-1db8c-default-rtdb.firebaseio.com/two.json")
+      .then((res) => {
+        if (res.ok) {
+          res.json().then((data) => {
+            if (data) {
+              let temp = [];
+              for (let key in data) {
+                temp = [...temp, { ...data[key], value: key }];
+              }
+              dispatch(ExpenseAction.GetData(temp));
+            }
+          });
+        } else {
+          res.json().then((data) => alert(data.error.message));
+        }
+      })
+      .catch((error) => console(error.message));
   }, []);
-  console.log(context.Expenses);
 
   const RemoveHandler = (expense) => {
-    context.RemoveExpense(expense);
+    fetch(
+      `https://authentication-1db8c-default-rtdb.firebaseio.com/two/${expense.value}.json`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          alert("Expese Delete SuccessFully ! ");
+        } else {
+          res.json().then((data) => alert(data.error.message));
+        }
+      })
+      .catch((error) => alert(error.message));
+
+    let temp = Expenses.filter((it) => it.Id !== expense.Id);
+    dispatch(ExpenseAction.RemoveExpense(temp));
   };
 
   return (
@@ -20,9 +56,9 @@ const ShowExpense = (props) => {
             <h1 class="text-3xl font-medium">Expenses</h1>
           </div>
           <div class="mt-8 w-full text-center ">
-            {context.Expenses.length === 0 && <h1> No Expense </h1>}
+            {Expenses === 0 && <h1> No Expense </h1>}
             <ul>
-              {context.Expenses.map((expense) => (
+              {Expenses.map((expense) => (
                 <li class="p-2 rounded-lg w-full bg-gray-300 mb-2">
                   <div class="flex align-middle flex-row justify-between">
                     <div class="p-2">{expense.Categeory}</div>

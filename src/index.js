@@ -3,9 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import AuthContextProvider from "./Store/AuthContextProvider";
+import AuthContextProvider from "./Store/ContextApi/AuthContextProvider";
 import { BrowserRouter } from "react-router-dom";
-import store from "./Store/Redux/AuthSlice";
+import store from "./Store/Redux/ReduxStore";
 import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

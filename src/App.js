@@ -10,7 +10,7 @@ import ExpensePage from "./Component/Expense/ExpensePage";
 import { useSelector } from "react-redux";
 
 function App() {
-  const IsLoggedIn = useSelector((state) => state.IsLoggedin);
+  const IsLoggedIn = useSelector((state) => state.Auth.IsLoggedin);
 
   return (
     <Layout>

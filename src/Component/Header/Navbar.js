@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import AuthContext from "../../Store/Auth-Context";
+import AuthContext from "../../Store/ContextApi/Auth-Context";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthAction } from "../../Store/Redux/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Navbar = () => {
   const context = useContext(AuthContext);
   const dispatch = useDispatch();
-  const IsLoggedIn = useSelector((state) => state.IsLoggedin);
+  const IsLoggedIn = useSelector((state) => state.Auth.IsLoggedin);
   const navigate = useNavigate();
 
   const LogoutHadler = () => {
@@ -25,11 +25,7 @@ const Navbar = () => {
         {!IsLoggedIn && <Link to={"/login"}>login</Link>}
         {!IsLoggedIn && <Link to={"/signup"}>SignUp</Link>}
         {IsLoggedIn && <Link to={"/profile"}>Profile</Link>}
-        {IsLoggedIn && (
-          <Link to={"/login"}>
-            <button onClick={LogoutHadler}> Logout </button>
-          </Link>
-        )}
+        {IsLoggedIn && <button onClick={LogoutHadler}> Logout </button>}
       </ul>
     </div>
   );
