@@ -3,7 +3,7 @@ import AuthContext from "../../Store/ContextApi/Auth-Context";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthAction } from "../../Store/Redux/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
-import ExpensePage from "../Expense/ExpensePage";
+import DarkModeBtn from "./DarkModeBtn";
 
 const Navbar = () => {
   const context = useContext(AuthContext);
@@ -18,12 +18,13 @@ const Navbar = () => {
   };
 
   return (
-    <div class="flex bg-gray-800 text-white top-0 py-3 flex-wrap justify-around bg-silver">
-      <h1 class="text-lg font-semibold">
+    <div class="flex bg-gray-600 text-white top-0 py-3  bg-silver">
+      <h1 class="text-lg font-semibold text-center w-1/2">
         <Link to={"/"}>Expense TracKeR</Link>
       </h1>
-      <ul class="flex gap-[40px] text-m cursor-pointer">
-        {!IsLoggedIn && <Link to={"/login"}>login</Link>}
+      <ul class="flex gap-[40px] text-lm font-bold cursor-pointer justify-end w-1/2 mr-12 text-base">
+        <DarkModeBtn />
+        {!IsLoggedIn && <Link to={"/login"}>Login</Link>}
         {!IsLoggedIn && <Link to={"/signup"}>SignUp</Link>}
         {IsLoggedIn && <Link to={"/profile"}>Profile</Link>}
         {IsLoggedIn && <Link to={"/"}>Dashboard</Link>}
