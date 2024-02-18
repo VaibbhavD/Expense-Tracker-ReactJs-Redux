@@ -6,6 +6,7 @@ const AuthState = {
   token: InitialToken,
   IsLoggedin: !!InitialToken,
   email: "",
+  DarkMode: false,
 };
 
 const AuthSlice = createSlice({
@@ -23,6 +24,10 @@ const AuthSlice = createSlice({
     },
     Setemail: (state, action) => {
       state.email = action.payload;
+    },
+    DarkMode: (state) => {
+      state.DarkMode = !state.DarkMode;
+      console.log(state.DarkMode);
     },
   },
 });
