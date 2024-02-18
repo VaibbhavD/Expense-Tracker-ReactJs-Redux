@@ -104,13 +104,13 @@ const ExpenseForm = () => {
 
   return (
     <>
-      <div class="w-screen mt-10 sm:mt-0 ">
-        <div class="w-full md:grid-cols-3 md:gap-6 text-center mt-10">
+      <div class="w-screen  ">
+        <div class="w-full md:grid-cols-3 md:gap-6 text-center mt-4">
           <h3 class="text-3xl font-medium leading-6 text-gray-900">
             Add Your Expenses
           </h3>
-          <div class="w-1/2  md:mt-0 md:col-span-2 m-auto  ">
-            <form onSubmit={SubmitEventmitHandler} class=" mt-10">
+          <div class="w-1/2  md:mt-0 md:col-span-2 m-auto -mb-10 ">
+            <form onSubmit={SubmitEventmitHandler} class=" mt-5">
               <div class=" shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-gray-400 sm:p-6">
                   <div class="grid grid-cols-6 gap-6">
@@ -172,7 +172,7 @@ const ExpenseForm = () => {
                     </div>
                   </div>
                 </div>
-                <div class="px-4 py-3  bg-gray-200 text-right sm:px-6">
+                <div class="px-4 py-3  bg-gray-300 text-right sm:px-6">
                   {!update && (
                     <button
                       type="submit"
