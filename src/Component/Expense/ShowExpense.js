@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import ExpenseTotal from "./ExpenseTotal";
 import ExpenseContext from "../../Store/ContextApi/ExpenseContext";
 import { useDispatch, useSelector } from "react-redux";
 import { ExpenseAction } from "../../Store/Redux/ExpenseSlice";
@@ -50,12 +51,12 @@ const ShowExpense = (props) => {
 
   return (
     <>
-      <div class="w-full h-full flex justify-center  pt-8">
-        <div class="w-1/2  p-3 bg-gray-100">
+      <div class="w-full h-full flex justify-center pt-8">
+        <div class="w-1/2 h-1/2 p-3 bg-gray-100">
           <div class="text-center ">
             <h1 class="text-3xl font-medium">Expenses</h1>
           </div>
-          <div class="mt-8 w-full text-center ">
+          <div class="mt-4 w-full text-center h-80 overflow-auto ">
             {Expenses === 0 && <h1> No Expense </h1>}
             <ul>
               {Expenses.map((expense) => (
@@ -82,6 +83,9 @@ const ShowExpense = (props) => {
             </ul>
           </div>
         </div>
+      </div>
+      <div className="h-full w-full flex justify-center ">
+        <ExpenseTotal />
       </div>
     </>
   );
