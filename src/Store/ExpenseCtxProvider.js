@@ -3,11 +3,10 @@ import ExpenseContext from "./ExpenseContext";
 
 const ExpenseCtxProvider = (props) => {
   const [Expenses, setExpenses] = useState([]);
-  const [keys, setkeys] = useState("");
 
   async function AddExpense(item) {
     await fetch(
-      "https://authentication-1db8c-default-rtdb.firebaseio.com/expens.json",
+      "https://authentication-1db8c-default-rtdb.firebaseio.com/two.json",
       {
         method: "POST",
         body: JSON.stringify(item),
@@ -36,7 +35,7 @@ const ExpenseCtxProvider = (props) => {
 
   const GetData = async () => {
     await fetch(
-      "https://authentication-1db8c-default-rtdb.firebaseio.com/expens.json"
+      "https://authentication-1db8c-default-rtdb.firebaseio.com/two.json"
     )
       .then((res) => {
         if (res.ok) {
@@ -58,7 +57,7 @@ const ExpenseCtxProvider = (props) => {
 
   const RemoveExpense = (item) => {
     fetch(
-      `https://authentication-1db8c-default-rtdb.firebaseio.com/expens/${item.value}.json`,
+      `https://authentication-1db8c-default-rtdb.firebaseio.com/two/${item.value}.json`,
       {
         method: "DELETE",
       }

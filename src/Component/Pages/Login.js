@@ -1,14 +1,17 @@
 import React, { useContext, useRef, useState } from "react";
-import AuthContext from "../../Store/Auth-Context";
 import Profile from "./Profile";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthAction } from "../../Store/Redux/AuthSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const EmailRef = useRef();
   const PasswordRef = useRef();
-  const context = useContext(AuthContext);
+  const Islogin = useSelector((state) => state.IsLoggedIn);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const Submit = (e) => {
+  const Submit = async (e) => {
     e.preventDefault();
     console.log("hi");
 
@@ -20,16 +23,43 @@ const Login = () => {
       password: Password,
       returnSecureToken: false,
     };
-    context.Login(user);
+
+    await fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAsZH3qrDtweiZTyYzmdE34My1E-wKNW0A",
+      {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    ).then((res) => {
+      console.log(res);
+      if (res.ok === true) {
+        res.json().then((data) => {
+          localStorage.setItem("token", data.idToken);
+          dispatch(AuthAction.Settoken(data.idToken));
+          dispatch(AuthAction.Setemail(data.email));
+          dispatch(AuthAction.Login());
+          alert("Login Succesfull");
+          navigate("/profile");
+        });
+      } else {
+        res.json().then((data) => {
+          alert(data.error.message);
+        });
+      }
+    });
+
     EmailRef.current.value = "";
     PasswordRef.current.value = "";
   };
 
   return (
     <>
-      {context.IsLoggedIn && <Profile />}
+      {Islogin && <Profile />}
       <div class="bg-grey-lighter min-h-full flex flex-col mt-20">
-        {!context.IsLoggedIn && (
+        {!Islogin && (
           <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
             <form
               onSubmit={Submit}

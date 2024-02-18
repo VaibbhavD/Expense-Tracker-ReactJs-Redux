@@ -48,9 +48,8 @@ const ExpenseForm = () => {
         setEdiExp(item);
       }
     });
-
     fetch(
-      `https://authentication-1db8c-default-rtdb.firebaseio.com/expens/${EditExp.value}.json`,
+      `https://authentication-1db8c-default-rtdb.firebaseio.com/two/${EditExp.value}.json`,
       {
         method: "PUT",
         body: JSON.stringify(EditExp),

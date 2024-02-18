@@ -2,16 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "./Auth-Context";
 import { useNavigate } from "react-router-dom";
 import ExpenseCtxProvider from "./ExpenseCtxProvider";
+import { useSelector } from "react-redux";
 
 const AuthContextProvider = (props) => {
   const InitialToken = localStorage.getItem("token");
   const [token, settoken] = useState(InitialToken);
-  const [Profile, setProfile] = useState({});
 
   const navigate = useNavigate();
 
   const IsLoggedIn = !!token;
-  console.log(IsLoggedIn);
 
   async function Login(user) {
     await fetch(
@@ -106,42 +105,9 @@ const AuthContextProvider = (props) => {
       });
   }
 
-  // useEffect(() => {
-  //   ProfileData();
-  // }, []);
-
-  // const ProfileData = async function () {
-  //   await fetch(
-  //     "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAsZH3qrDtweiZTyYzmdE34My1E-wKNW0A",
-  //     {
-  //       method: "POST",
-  //       body: JSON.stringify({
-  //         idToken: token,
-  //       }),
-  //     }
-  //   )
-  //     .then((res) => {
-  //       if (res.ok) {
-  //         res.json().then((data) => {
-  //           console.log(data.users);
-  //           console.log(data);
-  //           setProfile(data.users[0]);
-  //         });
-  //       } else {
-  //         res.json().then((data) => {
-  //           // alert(data.error.message);
-  //         });
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.massage);
-  //     });
-  // };
-
   const context = {
     token: token,
     IsLoggedIn: IsLoggedIn,
-    Profile: Profile,
     Login: Login,
     Logout: Logout,
     SignUp: SignUp,

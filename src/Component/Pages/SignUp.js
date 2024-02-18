@@ -1,14 +1,16 @@
 import React, { useContext, useRef } from "react";
 import AuthContext from "../../Store/Auth-Context";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const EmailRef = useRef();
   const PasswordRef = useRef();
   const RePasswordRef = useRef();
   const context = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const Submit = (e) => {
+  const Submit = async (e) => {
     e.preventDefault();
     console.log("hi");
 
@@ -22,7 +24,31 @@ const SignUp = () => {
         password: Password,
         returnSecureToken: true,
       };
-      context.SignUp(user);
+      await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAsZH3qrDtweiZTyYzmdE34My1E-wKNW0A",
+        {
+          method: "POST",
+          body: JSON.stringify(user),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      )
+        .then((res) => {
+          if (res.ok) {
+            res.json().then((data) => console.log(data));
+            alert("SignUp Succesfull");
+            navigate("/login");
+          } else {
+            res.json().then((data) => {
+              alert(data.error.message);
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error.massage);
+        });
+
       EmailRef.current.value = "";
       PasswordRef.current.value = "";
       RePasswordRef.current.value = "";

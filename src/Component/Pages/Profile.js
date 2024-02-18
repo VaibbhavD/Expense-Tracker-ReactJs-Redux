@@ -1,17 +1,21 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../../Store/Auth-Context";
 import VerifyEmail from "./EmailVerify";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const [enable, setenable] = useState(false);
+  // const [enable, setenable] = useState(false);
   const [profile, setprofile] = useState({});
   const context = useContext(AuthContext);
   const NameRef = useRef();
   const UrlRef = useRef();
+  const token = useSelector((state) => state.token);
 
   useEffect(() => {
     ProfileData();
   }, []);
+
+  console.log(token);
 
   const ProfileData = async function () {
     await fetch(
@@ -41,10 +45,6 @@ const Profile = () => {
       });
   };
 
-  const Showprofile = () => {
-    setenable((prev) => !prev);
-  };
-
   const SubmitHandler = () => {
     const Name = NameRef.current.value;
     const Url = UrlRef.current.value;
@@ -60,7 +60,7 @@ const Profile = () => {
           {profile.displayName && (
             <b
               className="cursor-pointer hover:text-red-500"
-              onClick={Showprofile}
+              // onClick={Showprofile}
             >
               Profile
             </b>
@@ -70,7 +70,7 @@ const Profile = () => {
               Your Profile is incomplete,
               <b
                 className="cursor-pointer hover:text-red-500"
-                onClick={Showprofile}
+                // onClick={Showprofile}
               >
                 Complete Now
               </b>
