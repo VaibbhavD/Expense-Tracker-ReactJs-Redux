@@ -7,6 +7,7 @@ const AuthState = {
   IsLoggedin: !!InitialToken,
   email: "",
   DarkMode: false,
+  Premium: false,
 };
 
 const AuthSlice = createSlice({
@@ -28,6 +29,9 @@ const AuthSlice = createSlice({
     DarkMode: (state) => {
       state.DarkMode = !state.DarkMode;
       console.log(state.DarkMode);
+    },
+    PremiumEnable: (state) => {
+      state.Premium = true;
     },
   },
 });

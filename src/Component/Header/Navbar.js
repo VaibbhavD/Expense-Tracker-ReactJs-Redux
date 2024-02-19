@@ -10,6 +10,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const IsLoggedIn = useSelector((state) => state.Auth.IsLoggedin);
   const navigate = useNavigate();
+  const Premium = useSelector((state) => state.Auth.Premium);
 
   const LogoutHadler = () => {
     localStorage.removeItem("token");
@@ -23,7 +24,7 @@ const Navbar = () => {
         <Link to={"/"}>Expense TracKeR</Link>
       </h1>
       <ul class="flex gap-[40px] text-lm font-bold cursor-pointer justify-end w-1/2 mr-12 text-base">
-        <DarkModeBtn />
+        {Premium && <DarkModeBtn />}
         {!IsLoggedIn && <Link to={"/login"}>Login</Link>}
         {!IsLoggedIn && <Link to={"/signup"}>SignUp</Link>}
         {IsLoggedIn && <Link to={"/profile"}>Profile</Link>}

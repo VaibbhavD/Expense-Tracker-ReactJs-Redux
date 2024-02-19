@@ -1,10 +1,16 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { AuthAction } from "../../Store/Redux/AuthSlice";
 
 const ExpenseTotal = () => {
   const Expenses = useSelector((state) => state.Expense.Expenses);
+  const dispatch = useDispatch();
 
   const total = Expenses.reduce((sum, arr) => sum + Number(arr.Amount), 0);
+
+  if (total >= 10000) {
+    dispatch(AuthAction.PremiumEnable());
+  }
 
   return (
     <p className="w-1/2 h-12 text-right text-lg font-bold flex justify-center space-x-2 px-4 bg-gray-100">
