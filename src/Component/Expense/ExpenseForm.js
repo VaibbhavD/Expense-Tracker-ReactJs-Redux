@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import ExpenseContext from "../../Store/ContextApi/ExpenseContext";
 import ShowExpense from "./ShowExpense";
 import { ExpenseAction } from "../../Store/Redux/ExpenseSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const ExpenseForm = () => {
   const AmountRef = useRef();
@@ -10,6 +10,7 @@ const ExpenseForm = () => {
   const DescriptionRef = useRef();
   const [update, setupdate] = useState(false);
   const dispatch = useDispatch();
+  const darkmode = useSelector((state) => state.Auth.DarkMode);
 
   const context = useContext(ExpenseContext);
 
@@ -103,9 +104,9 @@ const ExpenseForm = () => {
   };
 
   return (
-    <>
-      <div class="w-screen  ">
-        <div class="w-full md:grid-cols-3 md:gap-6 text-center mt-4">
+    <div class={`  ${darkmode ? "bg-black " : "bg-stone-200 text-black"}`}>
+      <div class="w-screen pt-4">
+        <div class="w-full md:grid-cols-3 md:gap-6 text-center ">
           <h3 class="text-3xl font-medium leading-6 text-gray-900">
             Add Your Expenses
           </h3>
@@ -206,7 +207,7 @@ const ExpenseForm = () => {
         </div>
       </div>
       <ShowExpense Edit={Edit} />
-    </>
+    </div>
   );
 };
 export default ExpenseForm;

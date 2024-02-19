@@ -8,6 +8,7 @@ const ShowExpense = (props) => {
   const context = useContext(ExpenseContext);
   const Expenses = useSelector((state) => state.Expense.Expenses);
   const dispatch = useDispatch();
+  const darkmode = useSelector((state) => state.Auth.DarkMode);
 
   useEffect(() => {
     fetch("https://authentication-1db8c-default-rtdb.firebaseio.com/two.json")
@@ -52,9 +53,13 @@ const ShowExpense = (props) => {
   return (
     <>
       <div class="w-full h-full flex justify-center pt-8">
-        <div class="w-1/2 h-1/2 p-3 bg-gray-100">
-          <div class="text-center ">
-            <h1 class="text-3xl font-medium">Expenses</h1>
+        <div
+          class={`w-1/2 h-1/2 p-3  ${darkmode ? "bg-black " : "bg-gray-100"}`}
+        >
+          <div class="text-center  ">
+            <h1 class={`text-3xl font-medium ${darkmode ? "text-white" : ""}`}>
+              Expenses
+            </h1>
           </div>
           <div class="mt-4 w-full text-center h-80 overflow-auto ">
             {Expenses === 0 && <h1> No Expense </h1>}

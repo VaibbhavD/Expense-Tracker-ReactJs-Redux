@@ -10,6 +10,7 @@ const Profile = () => {
   const NameRef = useRef();
   const UrlRef = useRef();
   const token = useSelector((state) => state.Auth.token);
+  const darkmode = useSelector((state) => state.Auth.DarkMode);
 
   useEffect(() => {
     ProfileData();
@@ -53,7 +54,11 @@ const Profile = () => {
   };
 
   return (
-    <div>
+    <div
+      class={` h-screen  ${
+        darkmode ? "bg-black text-stone-50" : "bg-stone-200"
+      }`}
+    >
       <div className=" h-4 flex p-3">
         <h3 className="w-1/2 text-left">Welcome For visit Our WebSite</h3>
         <p className="w-1/2 text-right">
@@ -69,11 +74,15 @@ const Profile = () => {
         </p>
       </div>
       <main className=" w-1/2 flex justify-center m-auto mt-10 p-5">
-        <div className="w-full border-2 p-5">
+        <div
+          className={`w-full border-2 p-5  text-black ${
+            darkmode ? "bg-stone-200" : "bg-white"
+          }`}
+        >
           <div className="flex justify-center w-full p-3 ">
             <h3 className="w-1/2 text-left">Contact Details</h3>
             <div className="w-1/2 flex justify-end">
-              <button className="p-2 rounded-md border-2 border-red-600">
+              <button className="p-2 rounded-md border-2 bg-red-500 border-red-600">
                 Cancel
               </button>
             </div>
@@ -102,7 +111,7 @@ const Profile = () => {
           </form>
           <div className="p-5">
             <button
-              className="bg-red-400 p-2 border-white rounded-md"
+              className="bg-green-500 p-2 px-4 border-white rounded-md"
               onClick={SubmitHandler}
             >
               Update
