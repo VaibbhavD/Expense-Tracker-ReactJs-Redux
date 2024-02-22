@@ -65,7 +65,10 @@ const ShowExpense = (props) => {
             {Expenses === 0 && <h1> No Expense </h1>}
             <ul>
               {Expenses.map((expense) => (
-                <li class="p-2 rounded-lg w-full bg-gray-300 mb-2">
+                <li
+                  class="p-2 rounded-lg w-full bg-gray-300 mb-2"
+                  key={expense.Id}
+                >
                   <div class="flex align-middle flex-row justify-between">
                     <div class="p-2">{expense.Categeory}</div>
                     <div class="p-2">

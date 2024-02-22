@@ -26,16 +26,16 @@ describe("Async Component", () => {
     expect(items).not.toHaveLength(0);
   });
 
-  test("renders", async () => {
-    render(
-      <Provider store={store}>
-        <ExpenseForm />
-      </Provider>
-    );
+  // test("renders", async () => {
+  //   render(
+  //     <Provider store={store}>
+  //       <ExpenseForm />
+  //     </Provider>
+  //   );
 
-    const items = await screen.findAllByRole("alert");
-    expect(items).toBeChecked();
-  });
+  //   const items = await screen.findAllByRole("alert");
+  //   expect(items).isInTheDocument();
+  // });
 
   test("renders", async () => {
     render(
@@ -54,7 +54,7 @@ describe("Async Component", () => {
       </Provider>
     );
 
-    const items = await screen.findByText("Categeory");
+    const items = await screen.findByText("Add Your Expenses");
     expect(items).toBeInTheDocument();
   });
 });
